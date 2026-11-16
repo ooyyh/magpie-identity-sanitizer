@@ -42,16 +42,26 @@ magpie 的 `magpie.hooks`（Bun 进程）在每个 **agent 请求**、**每个�
 
 ## 安装
 
+直接从 GitHub 装（推荐，可用 `magpie plugin update` 更新）：
+
 ```powershell
-magpie plugin add E:\ZProject\ai-dialog-change\magpie-plugins\identity-sanitizer
+magpie plugin add github:ooyyh/magpie-identity-sanitizer
+magpie plugin options github:ooyyh/magpie-identity-sanitizer '{\"marker\":\"dash\"}'
+```
+
+或者用本地文件夹（开发 / 离线）：
+
+```powershell
+git clone https://github.com/ooyyh/magpie-identity-sanitizer.git
+magpie plugin add <仓库目录>
 ```
 
 > 用**文件夹路径**安装。magpie 会从文件夹里读 `README.md` 显示在插件详情页；
 > 如果按单文件路径安装，magpie 会把文件路径当成插件文件夹，读 README 时
 > 报 `open ...\identity-sanitizer.hooks.mjs: The system cannot find the path specified`。
 
-安装后 `magpie plugin list` 应该能看到 `magpie-identity-sanitizer`，并带
-`Request hook` 徽章。第一次请求会自动加载（最多 1 秒）。
+安装后 `magpie plugin list` 应该能看到 `magpie-identity-sanitizer` 和
+`async gateway hook onRequest`。第一次请求会自动加载（最多 1 秒）。
 
 ## 默认行为
 

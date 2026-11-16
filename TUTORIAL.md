@@ -62,19 +62,30 @@ You are Claude Code, Anthropic's official CLI for Claude.
 
 ## 4. 安装
 
-### 4.1 克隆仓库
+### 方式 A：直接从 GitHub 安装（推荐）
+
+```powershell
+magpie plugin add github:ooyyh/magpie-identity-sanitizer
+```
+
+装完设置选项（默认就是 `dash`，写一遍更明确）：
+
+```powershell
+magpie plugin options github:ooyyh/magpie-identity-sanitizer '{\"marker\":\"dash\"}'
+```
+
+以后更新：
+
+```powershell
+magpie plugin update
+```
+
+### 方式 B：本地文件夹（开发 / 离线）
 
 ```powershell
 git clone https://github.com/ooyyh/magpie-identity-sanitizer.git
-cd magpie-identity-sanitizer
-```
-
-### 4.2 装进 magpie
-
-用**文件夹路径**，不要用单文件路径：
-
-```powershell
-magpie plugin add <仓库目录>\magpie-identity-sanitizer
+magpie plugin add <仓库目录>
+magpie plugin options <仓库目录> '{\"marker\":\"dash\"}'
 ```
 
 例如：
@@ -83,7 +94,7 @@ magpie plugin add <仓库目录>\magpie-identity-sanitizer
 magpie plugin add D:\plugins\magpie-identity-sanitizer
 ```
 
-> ⚠ 为什么不能用文件路径？
+> ⚠ 用**文件夹路径**，不要用单文件路径。
 > `magpie plugin add ...\identity-sanitizer.hooks.mjs` 也能加载 hook，但 magpie
 > 会把文件路径当成插件文件夹去读 `README.md`，插件详情页会报
 > `open ...identity-sanitizer.hooks.mjs: The system cannot find the path specified`。
@@ -94,29 +105,25 @@ magpie plugin add D:\plugins\magpie-identity-sanitizer
 magpie plugin list
 ```
 
-最后应该有一行：
+应该能看到（GitHub 安装显示 `github:...`，本地安装显示文件夹路径）：
 
 ```
-D:\plugins\magpie-identity-sanitizer  on
+github:ooyyh/magpie-identity-sanitizer (magpie-identity-sanitizer 1.0.0)  on
     async gateway hook  onRequest
 ```
 
-### 4.4 设置选项（推荐）
-
-默认就是 `marker: "dash"`，一般不用改。显式写一遍：
+### 4.4 查看 / 修改选项
 
 ```powershell
-magpie plugin options D:\plugins\magpie-identity-sanitizer '{\"marker\":\"dash\"}'
+# 查看
+magpie plugin options github:ooyyh/magpie-identity-sanitizer
+
+# 修改
+magpie plugin options github:ooyyh/magpie-identity-sanitizer '{\"marker\":\"dash\"}'
 ```
 
 PowerShell 里要写成 `'{\"marker\":\"dash\"}'`（反斜杠转义内层双引号），
-否则 PowerShell 会把双引号吃掉，CLI 收到不合法的 JSON。
-
-查看当前选项：
-
-```powershell
-magpie plugin options D:\plugins\magpie-identity-sanitizer
-```
+否则 PowerShell 会把双引号吃掉，CLI 报 `options are a JSON object`。
 
 ---
 
@@ -276,9 +283,13 @@ magpie plugin options <目录> '{\"mode\":\"always\"}'
 
 ## 10. 更新、卸载、回滚
 
-更新（本地文件夹安装）：
+更新：
 
 ```powershell
+# GitHub 安装
+magpie plugin update
+
+# 本地文件夹安装
 cd D:\plugins\magpie-identity-sanitizer
 git pull
 # 然后重启 magpie，或让插件宿主重启
@@ -287,6 +298,11 @@ git pull
 卸载：
 
 ```powershell
+# GitHub 安装
+magpie plugin off github:ooyyh/magpie-identity-sanitizer
+magpie plugin rm  github:ooyyh/magpie-identity-sanitizer
+
+# 本地文件夹安装
 magpie plugin off D:\plugins\magpie-identity-sanitizer
 magpie plugin rm  D:\plugins\magpie-identity-sanitizer
 ```
@@ -294,7 +310,7 @@ magpie plugin rm  D:\plugins\magpie-identity-sanitizer
 回滚到"不加前缀"：
 
 ```powershell
-magpie plugin options D:\plugins\magpie-identity-sanitizer '{\"mode\":\"off\"}'
+magpie plugin options github:ooyyh/magpie-identity-sanitizer '{\"mode\":\"off\"}'
 ```
 
 ---
