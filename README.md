@@ -1,3 +1,4 @@
+<a href="https://linux.do"><img src="https://img.shields.io/badge/LINUX%20DO-%E7%A4%BE%E5%8C%BA-FFB003?style=flat-square" alt="LINUX DO 社区" /></a>
 # magpie-identity-sanitizer
 
 一个 magpie 网关插件：**在所有渠道上**拆掉上游的「agent 身份句指纹」，避免
