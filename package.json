@@ -1,0 +1,16 @@
+{
+  "name": "magpie-identity-sanitizer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Break upstream agent-identity fingerprints at the system-prompt line start, for every provider.",
+  "magpie": {
+    "hooks": "./identity-sanitizer.hooks.mjs",
+    "options": {
+      "mode": "always",
+      "marker": "dash",
+      "learn": true,
+      "log": true
+    }
+  }
+}
